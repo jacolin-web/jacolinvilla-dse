@@ -24,6 +24,8 @@
 :root{--notefont:'Kablammo';--bg:#EFF6F2;--paper:#FFFFFF;--ink:#2A2140;--sub:#564E75;--pink:#FFC2E2;--pinklt:#E6E9FD;--red:#6633CC;--yellow:#C7CDF9;--blue:#7FE3D4;--lilac:#D8C8FA;--green:#7FE3D4}
 [data-theme="dark"]{--bg:#050814;--paper:#10142E;--ink:#ECEFFF;--sub:#A9B4DE;--pink:#6E2756;--pinklt:#211C45;--red:#9FB0FF;--yellow:#2B3372;--blue:#1A5F55;--lilac:#472F7D;--green:#1A5F55}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:'Space Grotesk',sans-serif;overflow-x:hidden}
+[role="button"]:focus-visible,button:focus-visible,a:focus-visible{outline:3px solid var(--red);outline-offset:3px}
+[role="button"]{outline:none}
 a{color:var(--ink)}a:hover{color:var(--red)}
 .tv{transition:background-color .6s ease,color .6s ease,border-color .6s ease,box-shadow .6s ease}
 @keyframes twinkle{0%,100%{opacity:.3;transform:scale(.7) rotate(0deg)}50%{opacity:1;transform:scale(1.15) rotate(18deg)}}
@@ -119,7 +121,7 @@ footer{padding-left:24px !important;padding-right:24px !important}
       <sc-if value="{{ noActive }}" hint-placeholder-val="{{ true }}">
       <div style="display:flex;justify-content:center;gap:clamp(10px,2.2vw,32px);flex-wrap:wrap;perspective:1600px;padding:12px 0 8px">
         <sc-for list="{{ cases }}" as="c" hint-placeholder-count="4">
-          <div onClick="{{ c.pick }}" style="width:228px;height:352px;cursor:pointer;position:relative;transform:rotate({{ c.tilt }}deg);transition:transform .6s cubic-bezier(.16,1,.3,1)" style-hover="transform:rotate(0deg) translateY(-18px) scale(1.03)">
+          <div onClick="{{ c.pick }}" onKeyDown="{{ c.pickKey }}" role="button" tabindex="0" aria-label="{{ c.name }}" style="width:228px;height:352px;cursor:pointer;position:relative;transform:rotate({{ c.tilt }}deg);transition:transform .6s cubic-bezier(.16,1,.3,1)" style-hover="transform:rotate(0deg) translateY(-18px) scale(1.03)">
             <div style="position:absolute;inset:0;transform-style:preserve-3d;transition:transform .9s cubic-bezier(.3,.9,.25,1);transform:rotateY({{ c.deg }}deg)" style-hover="transform:rotateY({{ c.hoverDeg }}deg)">
               <div style="position:absolute;inset:0;backface-visibility:hidden;border:2px solid var(--ink);border-radius:18px;background:{{ c.bg }};box-shadow:6px 6px 0 var(--ink);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;overflow:hidden">
                 <div style="position:absolute;inset:10px;border:2px dashed var(--ink);border-radius:12px;opacity:.5"></div>
@@ -274,7 +276,7 @@ footer{padding-left:24px !important;padding-right:24px !important}
           <text x="165" y="67" text-anchor="middle" fill="var(--ink)" opacity="0.8" style="font-family:var(--notefont),cursive;font-size:16px">?</text>
           <text x="165" y="36" text-anchor="middle" fill="var(--sub)" style="font-family:var(--notefont),cursive;font-size:17px">Vega — the next chapter</text>
           <sc-for list="{{ jobs }}" as="j" hint-placeholder-count="4">
-            <g onClick="{{ j.pick }}" style="cursor:pointer">
+            <g onClick="{{ j.pick }}" onKeyDown="{{ j.pickKey }}" role="button" tabindex="0" aria-label="{{ j.co }}">
               <circle cx="{{ j.x }}" cy="{{ j.y }}" r="26" fill="transparent"></circle>
               <circle cx="{{ j.x }}" cy="{{ j.y }}" r="{{ j.ringR }}" fill="none" stroke="var(--red)" stroke-width="2" opacity="{{ j.ringOp }}" style="transition:all .5s ease"></circle>
               <path d="{{ j.starPath }}" fill="var(--red)" style="transition:transform .5s ease;transform-origin:{{ j.x }}px {{ j.y }}px;transform:scale({{ j.scale }})"></path>
@@ -308,7 +310,7 @@ footer{padding-left:24px !important;padding-right:24px !important}
       <p style="color:var(--sub);font-size:16px;margin:0 0 52px">Game jams, tiny web toys, and things made with my hands.</p>
       <sc-if value="{{ noPlay }}" hint-placeholder-val="{{ true }}">
       <div class="play-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:28px">
-        <div onClick="{{ openJams }}" style="cursor:pointer;border:2px solid var(--ink);border-radius:18px;background:var(--pink);box-shadow:6px 6px 0 var(--ink);padding:30px;display:flex;flex-direction:column;gap:13px;transition:transform .5s cubic-bezier(.16,1,.3,1),box-shadow .5s" style-hover="transform:rotate(-2deg) translateY(-8px);box-shadow:9px 9px 0 var(--ink)">
+        <div onClick="{{ openJams }}" onKeyDown="{{ openJamsKey }}" role="button" tabindex="0" aria-label="Open game jams gallery" style="cursor:pointer;border:2px solid var(--ink);border-radius:18px;background:var(--pink);box-shadow:6px 6px 0 var(--ink);padding:30px;display:flex;flex-direction:column;gap:13px;transition:transform .5s cubic-bezier(.16,1,.3,1),box-shadow .5s" style-hover="transform:rotate(-2deg) translateY(-8px);box-shadow:9px 9px 0 var(--ink)">
           <svg viewBox="0 0 48 48" style="width:42px;height:42px;overflow:visible">
             <rect x="5" y="15" width="38" height="20" rx="10" fill="var(--ink)"></rect>
             <path d="M13 19 h4 v4 h4 v4 h-4 v4 h-4 v-4 h-4 v-4 h4 Z" fill="var(--paper)"></path>
@@ -320,7 +322,7 @@ footer{padding-left:24px !important;padding-right:24px !important}
           <p style="margin:0;font-size:14.5px;line-height:1.65;color:var(--ink)">Weekend build, silly art, questionable game mechanics but a whole lot of fun.</p>
           <span style="font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.14em;margin-top:auto">OPEN GALLERY →</span>
         </div>
-        <div onClick="{{ openToys }}" style="cursor:pointer;border:2px solid var(--ink);border-radius:18px;background:var(--yellow);box-shadow:6px 6px 0 var(--ink);padding:30px;display:flex;flex-direction:column;gap:13px;transition:transform .5s cubic-bezier(.16,1,.3,1),box-shadow .5s" style-hover="transform:rotate(1.5deg) translateY(-8px);box-shadow:9px 9px 0 var(--ink)">
+        <div onClick="{{ openToys }}" onKeyDown="{{ openToysKey }}" role="button" tabindex="0" aria-label="Open tiny web toys gallery" style="cursor:pointer;border:2px solid var(--ink);border-radius:18px;background:var(--yellow);box-shadow:6px 6px 0 var(--ink);padding:30px;display:flex;flex-direction:column;gap:13px;transition:transform .5s cubic-bezier(.16,1,.3,1),box-shadow .5s" style-hover="transform:rotate(1.5deg) translateY(-8px);box-shadow:9px 9px 0 var(--ink)">
           <svg viewBox="0 0 48 48" style="width:42px;height:42px;overflow:visible">
             <path d="M12 8 L36 22 L25.5 25.5 L22 36 Z" fill="var(--ink)"></path>
             <path d="M38 30 Q39.8 36.5 45 37.5 Q39.8 38.5 38 45 Q36.2 38.5 31 37.5 Q36.2 36.5 38 30Z" fill="var(--red)" style="animation:twinkle 3.6s ease-in-out .5s infinite;transform-origin:38px 37.5px"></path>
@@ -329,7 +331,7 @@ footer{padding-left:24px !important;padding-right:24px !important}
           <p style="margin:0;font-size:14.5px;line-height:1.65;color:var(--ink)">The love children of my curiosity of art and technology.</p>
           <span style="font-family:'Space Mono',monospace;font-size:11px;font-weight:700;letter-spacing:.14em;margin-top:auto">OPEN GALLERY →</span>
         </div>
-        <div onClick="{{ openHands }}" style="cursor:pointer;border:2px solid var(--ink);border-radius:18px;background:var(--blue);box-shadow:6px 6px 0 var(--ink);padding:30px;display:flex;flex-direction:column;gap:13px;transition:transform .5s cubic-bezier(.16,1,.3,1),box-shadow .5s" style-hover="transform:rotate(-1.5deg) translateY(-8px);box-shadow:9px 9px 0 var(--ink)">
+        <div onClick="{{ openHands }}" onKeyDown="{{ openHandsKey }}" role="button" tabindex="0" aria-label="Open made by hand gallery" style="cursor:pointer;border:2px solid var(--ink);border-radius:18px;background:var(--blue);box-shadow:6px 6px 0 var(--ink);padding:30px;display:flex;flex-direction:column;gap:13px;transition:transform .5s cubic-bezier(.16,1,.3,1),box-shadow .5s" style-hover="transform:rotate(-1.5deg) translateY(-8px);box-shadow:9px 9px 0 var(--ink)">
           <svg viewBox="0 0 48 48" style="width:42px;height:42px;overflow:visible">
             <path d="M18 8 h12 c0 7 8 9 8 17 a14 14 0 0 1 -28 0 c0 -8 8 -10 8 -17 Z" fill="var(--ink)"></path>
             <path d="M24 20 Q25.6 26 31 27.5 Q25.6 29 24 35 Q22.4 29 17 27.5 Q22.4 26 24 20Z" fill="var(--pink)" style="animation:twinkle 3.8s ease-in-out .3s infinite;transform-origin:24px 27.5px"></path>
@@ -407,7 +409,7 @@ class Component extends DCLogic {
       outcomes: ['Feature delivery time dropped 40% once teams composed from the shared library instead of building bespoke UI.', 'Onboarding and engineering hand-off time dropped 75% — Storybook served as the source of truth, so new engineers shipped against documented API contracts instead of tribal knowledge.', 'The User & Vehicle Management domain served as the system\u2019s first consumer, pressure-testing component APIs against real product constraints before wider adoption.','The patterns and API contracts outlasted my tenure — the architecture was built to be extended without me in the room.'],
       stack: ['React', 'TypeScript', 'Nx Monorepo', 'RTK Query', 'Storybook'] },
     { n: 'II', name: 'The Architect', org: 'Intuit', title: 'Segmentation Design System', blurb: 'UX refresh of Mailchimp\u2019s Segment Builder that\u2019s used across all its product surfaces.', stat: '$1.5M/mo churn cut',
-      roleLine: 'Technical Frontend Lead',
+      roleLine: 'Software Engineer II \u00b7 functioned as frontend technical lead',
       link: 'https://mailchimp.com/help/getting-started-with-segments/', linkLabel: 'see segments in action',
       lede: 'As frontend technical lead for the Segmentation team, I owned the architecture of Mailchimp\u2019s Segment Builder — the conditional-logic interface used across every product surface where users target an audience. The UX refresh had to modernize a component serving 11M users without breaking the filter logic thousands of automations depended on. My job was to set a component architecture that product teams could extend without touching the shared core.',
       metrics: [{ v: '11M', l: 'users across all product surfaces' }, { v: '$1.5M/mo', l: 'churn reduction' }, { v: '60%', l: 'test coverage improvement' }],
@@ -427,18 +429,18 @@ class Component extends DCLogic {
         'Office hours and developer-facing docs turned the Segmentation team\u2019s patterns into defaults other product teams adopted.'
       ],
       stack: ['React', 'TypeScript', 'Polymorphic Component APIs', 'Playwright', 'WCAG 2.1 AA'] },
-    { n: 'III', name: 'The Cartographer', org: 'Rackspace', title: 'Beacon Design System', blurb: 'Modernizing Rackspace\u2019s UI tech stack and leveraging AI for easier and wider adoption.', stat: '47 components',
+    { n: 'III', name: 'The Cartographer', org: 'Rackspace', title: 'Beacon Design System — Test Generation & Observability', blurb: 'Owned automated test coverage and production monitoring for Rackspace\u2019s 47-component design system.', stat: '47 components instrumented',
       roleLine: 'Software Developer II',
-      lede: 'Rackspace\u2019s UI stack had aged into inconsistency — legacy patterns, no shared component contract, and adoption friction that made every new surface a bespoke build. I built the Beacon Design System to modernize the stack: 47 core components on React 19 and the TanStack ecosystem, structured around a semantic token architecture, with AI-assisted workflows built in so adoption didn\u2019t depend on tribal knowledge.',
-      metrics: [{ v: '47', l: 'core components' }, { v: '3-tier', l: 'semantic token architecture' }],
+      lede: 'Rackspace was building the Beacon Design System — 47 core components on React 19 and TanStack, on a semantic token architecture already in place. My scope was quality and observability: get automated test coverage across the library and make system health measurable in production, so adoption didn\u2019t depend on manual QA or after-the-fact bug reports.',
+      metrics: [{ v: '47', l: 'components under automated test coverage' }, { v: 'RUM', l: 'Web Vitals dashboard shipped to production' }],
     approach: [
-        'I structured the system server-driven-UI-first: a data-driven component architecture that decoupled rendering from data fetching, so components declared what they consumed rather than how it arrived. Component APIs were built platform-agnostic on Base UI primitives with Tailwind CSS v4, keeping behavior and accessibility in the primitive layer and brand in the token layer. The tokens ran three tiers — primitive, semantic, component — so a rebrand or theme was a token-layer change, never a component rewrite.',
-        'Quality and adoption were both automated rather than reviewed. Test generation ran across all 47 components, a Chromatic visual regression pipeline caught drift before merge, and a Datadog RUM dashboard tracked Web Vitals so system health was observable, not asserted. The AI layer was the adoption lever: steering documents that gave coding assistants the system\u2019s conventions, component APIs, and token vocabulary, so an engineer generating UI got Beacon-compliant output by default instead of plausible-looking code built on the wrong values.'
+        'I built the automated test generation pipeline covering all 47 components in the library, so every component shipped with baseline tests instead of depending on individual engineers to write them from scratch. The pipeline ran alongside the existing Chromatic visual regression setup, so functional coverage and visual diffing both ran on every PR.',
+        'I instrumented the library with Datadog RUM, tracking Web Vitals per surface so system health was measurable in production rather than inferred from bug reports. That gave the team a metric-level view of regressions instead of relying on review-time catch.'
       ],
-      rejected: [{ t: 'Rejected: styled wrappers over a pre-built component library', b: 'Wrapping an existing library (MUI-style) was the fast path to 47 components. Base UI primitives kept behavior and accessibility without inheriting anyone else\u2019s visual or API opinions.' }, { t: 'Rejected: flat token structure', b: 'A single-tier token list (color-blue-500 used directly in components) was simpler to ship. The semantic middle tier means components reference intent (surface-raised, text-muted) and the primitive values can change underneath without touching component code.'}],
-      a11y: 'Base UI primitives carried the interaction-level accessibility — focus management, keyboard behavior, ARIA wiring — so every Beacon component inherited a tested baseline rather than reimplementing it. Automated checks in the test-generation pipeline enforced the standard on every PR instead of relying on review-time catch.',
-      outcomes: ['47 core components shipped on a consistent token architecture, replacing bespoke per-surface UI builds.', 'Automated test generation and Chromatic visual regression meant every PR was screened without manual QA gatekeeping.', 'The Datadog RUM dashboard made system health measurable — Web Vitals per surface, regression visible at the metric layer.', 'Platform-agnostic component APIs positioned the system for web and mobile consumption from one contract.'],
-      stack: ['React 19', 'TypeScript', 'TanStack', 'Base UI', 'Tailwind CSS v4', 'Design Tokens', 'Chromatic', 'Datadog RUM'] },
+      rejected: [{ t: 'Rejected: hand-written tests per component', b: 'Writing tests component-by-component was the default path, and the bottleneck adoption would have hit first as the library grew. Generating baseline coverage from the component contract meant every new component shipped tested by default.' }, { t: 'Rejected: manual QA sign-off before merge', b: 'A manual QA gate would have queued against the library\u2019s release cadence. Automated test generation plus Chromatic gave equivalent coverage without a human bottleneck.'}],
+      a11y: 'Accessibility baseline came from the Base UI primitive layer the system was built on. My test-generation pipeline included automated axe checks in the generated suite, so a regression in keyboard behavior or ARIA wiring failed CI before it shipped, instead of depending on manual review to catch it.',
+      outcomes: ['Automated test generation gave all 47 components baseline coverage without per-component manual test-writing.', 'Datadog RUM made system health measurable in production — Web Vitals per surface, regressions visible at the metric layer instead of caught after the fact.', 'Generated test suites included accessibility checks, so primitive-layer a11y regressions failed CI before merge.', 'Both pipelines were infrastructure, not one-off fixes — they kept running after my tenure ended.'],
+      stack: ['React 19', 'TypeScript', 'TanStack', 'Base UI', 'Chromatic', 'Datadog RUM', 'Automated Test Generation'] },
     { n: 'IV', name: 'The Oracle', org: 'Side Quest', title: 'Component Health Checker', blurb: 'A Figma plugin that audits component libraries for drift and reports findings with severity.', stat: '94 findings, 169 nodes',
       roleLine: 'Solo build · 2026',
       link: 'https://github.com/jacolin-web/component-health-checker', linkLabel: 'Check out the Github Repo',
@@ -457,7 +459,7 @@ class Component extends DCLogic {
   { co: 'JPMorganChase', role: 'Associate Software Engineer', when: '2018 \u2014 2022', desc: 'Built a React/Redux internal platform serving 130+ employees including C-suite executives, establishing the component patterns and testing standards later reused across multiple internal applications. Led demos and training that drove adoption across teams.', tags: ['React', 'Redux', 'Java'] },
   { co: 'Synop', role: 'Founding Senior Frontend Engineer', when: '2022 \u2014 2022', desc: 'Founding frontend engineer; architected the component library 0→1, defined the frontend architecture with product and design leadership, and validated the system as its first consumer through the User & Vehicle Management domain.', tags: ['React', 'TypeScript', 'Nx Monorepo', 'Storybook'] },
   { co: 'Intuit', role: 'Software Engineer II', when: '2023 \u2014 2024', desc: 'Frontend technical lead who set the component architecture for the Segment Builder and Segmentation Design System serving 11M users — polymorphic input contracts, recursive condition groups — credited with $1.5M/month in churn reduction.', tags: ['React', 'Design Systems', 'Playwright', 'WCAG 2.1'] },
-  { co: 'Rackspace', role: 'Software Developer II', when: 'Dec 2025 \u2014 Jan 2026', desc: 'Built the Beacon Design System — 47 components on React 19 with semantic token architecture, platform-agnostic APIs on Base UI primitives, and a Chromatic visual regression pipeline.', tags: ['React 19', 'Design Tokens', 'Chromatic', 'TanStack'] }
+  { co: 'Rackspace', role: 'Software Developer II', when: '2025 \u2014 2026', desc: 'Contributed to the Beacon Design System (47 components, React 19, semantic token architecture) — owned automated test generation and Datadog RUM instrumentation across the library.', tags: ['React 19', 'Design Tokens', 'Chromatic', 'TanStack'] }
   ];
   // Chart positions along Lyra, earliest job first — fixed to the constellation, not the data
   static POINTS = [{ x: 150, y: 320 }, { x: 345, y: 345 }, { x: 405, y: 190 }, { x: 215, y: 160 }];
@@ -543,6 +545,7 @@ class Component extends DCLogic {
     this.setState(next);
   }
   go(view) { this.setState({ view, activeCase: null }, () => this.syncHash()); window.scrollTo({ top: 0 }); }
+  keyActivate(fn) { return (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); fn(); } }; }
   renderVals() {
     const S = Component;
     const v = this.state.view;
@@ -553,13 +556,17 @@ class Component extends DCLogic {
         if (!this.state.flipped[i]) { const f = [...this.state.flipped]; f[i] = true; this.setState({ flipped: f }); }
         else this.setState({ activeCase: i }, () => { this.syncHash(); window.scrollTo({ top: 0, behavior: 'smooth' }); });
       },
+      pickKey: this.keyActivate(() => {
+        if (!this.state.flipped[i]) { const f = [...this.state.flipped]; f[i] = true; this.setState({ flipped: f }); }
+        else this.setState({ activeCase: i }, () => { this.syncHash(); window.scrollTo({ top: 0, behavior: 'smooth' }); });
+      }),
       unflip: (e) => {
         e.stopPropagation();
         const f = [...this.state.flipped]; f[i] = false;
         this.setState({ flipped: f, activeCase: this.state.activeCase === i ? null : this.state.activeCase });
       } }));
     const active = this.state.activeCase !== null ? cases[this.state.activeCase] : cases[0];
-    const jobs = S.JOBS.map((j, i) => { const p = S.POINTS[i]; return { ...j, x: p.x, y: p.y, pick: () => this.setState({ activeJob: i }), starPath: this.star(p.x, p.y, i === this.state.activeJob ? 16 : 11), scale: 1, ringR: i === this.state.activeJob ? 25 : 0, ringOp: i === this.state.activeJob ? 0.9 : 0,
+    const jobs = S.JOBS.map((j, i) => { const p = S.POINTS[i]; return { ...j, x: p.x, y: p.y, pick: () => this.setState({ activeJob: i }), pickKey: this.keyActivate(() => this.setState({ activeJob: i })), starPath: this.star(p.x, p.y, i === this.state.activeJob ? 16 : 11), scale: 1, ringR: i === this.state.activeJob ? 25 : 0, ringOp: i === this.state.activeJob ? 0.9 : 0,
       labels: React.createElement('g', { key: 'lbl' + i },
         React.createElement('text', { x: p.x, y: p.y + 48, textAnchor: 'middle', fill: 'var(--ink)', style: { fontFamily: "'Instrument Serif',serif", fontStyle: 'italic', fontSize: 18 } }, j.co),
         React.createElement('text', { x: p.x, y: p.y + 66, textAnchor: 'middle', fill: 'var(--sub)', style: { fontFamily: "'Space Mono',monospace", fontSize: 10, letterSpacing: '.08em' } }, j.when)) }; });
@@ -595,6 +602,7 @@ class Component extends DCLogic {
         return [p.s1, p.s2, p.s3].map((id, i) => { const it = items[i] ?? {}; const cap = it.cap ?? caps[i]; return { id, cap, rot: rots[i], link: it.link, hasLink: !!it.link, img: it.src ? React.createElement('img', { src: it.src, alt: cap, style: { width: '100%', height: '100%', objectFit: 'cover', display: 'block' } }) : null, hasSrc: !!it.src, noSrc: !it.src }; });
       })(),
       openJams: () => this.setState({ activePlay: 0 }), openToys: () => this.setState({ activePlay: 1 }), openHands: () => this.setState({ activePlay: 2 }),
+      openJamsKey: this.keyActivate(() => this.setState({ activePlay: 0 })), openToysKey: this.keyActivate(() => this.setState({ activePlay: 1 })), openHandsKey: this.keyActivate(() => this.setState({ activePlay: 2 })),
       closePlay: () => this.setState({ activePlay: null })
     };
   }
