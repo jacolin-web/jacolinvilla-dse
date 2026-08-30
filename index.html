@@ -23,7 +23,7 @@
 <style>
 :root{--notefont:'Kablammo';--bg:#EFF6F2;--paper:#FFFFFF;--ink:#2A2140;--sub:#564E75;--pink:#FFC2E2;--pinklt:#E6E9FD;--red:#6633CC;--yellow:#C7CDF9;--blue:#7FE3D4;--lilac:#D8C8FA;--green:#7FE3D4}
 [data-theme="dark"]{--bg:#050814;--paper:#10142E;--ink:#ECEFFF;--sub:#A9B4DE;--pink:#6E2756;--pinklt:#211C45;--red:#9FB0FF;--yellow:#2B3372;--blue:#1A5F55;--lilac:#472F7D;--green:#1A5F55}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:'Space Grotesk',sans-serif;overflow-x:hidden}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Space Grotesk',sans-serif;overflow-x:hidden;white-space: pre-line;}
 [role="button"]:focus-visible,button:focus-visible,a:focus-visible{outline:3px solid var(--red);outline-offset:3px}
 [role="button"]{outline:none}
 a{color:var(--ink)}a:hover{color:var(--red)}
@@ -456,7 +456,7 @@ class Component extends DCLogic {
       stack: ['TypeScript', 'Figma Plugin API', 'Vitest', 'Rule Engine', 'CI'] }
   ];
   static JOBS = [
-  { co: 'JPMorganChase', role: 'Associate Software Engineer', when: '2018 \u2014 2022', desc: 'Promoted from Software Engineer, Jul. 2020. Built a React/Redux internal platform serving 130+ employees including C-suite executives, establishing the component patterns and testing standards later reused across multiple internal applications. Led demos and training that drove adoption across teams.', tags: ['React', 'Redux', 'Java'] },
+  { co: 'JPMorganChase', role: 'Associate Software Engineer', when: '2018 \u2014 2022', desc: 'Promoted from Software Engineer, Jul. 2020.\u000A Built a React/Redux internal platform serving 130+ employees including C-suite executives, establishing the component patterns and testing standards later reused across multiple internal applications. Led demos and training that drove adoption across teams.', tags: ['React', 'Redux', 'Java'] },
   { co: 'Synop', role: 'Founding Senior Frontend Engineer', when: '2022 \u2014 2022', desc: 'Founding frontend engineer; architected the component library 0→1, defined the frontend architecture with product and design leadership, and validated the system as its first consumer through the User & Vehicle Management domain.', tags: ['React', 'TypeScript', 'Nx Monorepo', 'Storybook'] },
   { co: 'Intuit', role: 'Software Engineer II', when: '2023 \u2014 2024', desc: 'Frontend technical lead who set the component architecture for the Segment Builder and Segmentation Design System serving 11M users — polymorphic input contracts, recursive condition groups — credited with $1.5M/month in churn reduction.', tags: ['React', 'Design Systems', 'Playwright', 'WCAG 2.1'] },
   { co: 'Rackspace', role: 'Software Developer II', when: '2025 \u2014 2026', desc: 'Contributed to the Beacon Design System (47 components, React 19, semantic token architecture) — owned automated test generation and Datadog RUM instrumentation across the library.', tags: ['React 19', 'Design Tokens', 'Chromatic', 'TanStack'] }
